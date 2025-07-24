@@ -1,38 +1,43 @@
 package com.adadev.tracker_backend.controller;
-
 import java.util.List;
-
-import com.adadev.tracker_backend.exception.UserNotFoundException;
+import com.adadev.tracker_backend.dto.AddUserToGroupRequest;
 import com.adadev.tracker_backend.model.User;
-import com.adadev.tracker_backend.repository.UserRepository;
+import com.adadev.tracker_backend.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
+/*
+Note: Controller vs Service: Controller should only have logic related to REST request/response!
+All business logic goes into service.
+ */
+
 @RestController
-@CrossOrigin("http://localhost:5432") // For now, to allow for front end to reach backend when hosted locally
+@RequestMapping("/users")
 public class UserController {
-    private final UserRepository userRepository;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final UserService userService;
 
-    // Get all users
-    @GetMapping("/users")
-    public List<User> findAllUsers() {
-        return this.userRepository.findAll();
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
-
-    // Get specific user by id
-    // ADJUST SO THAT IT CAN BE BY USERNAME AS WELL (check the {} part for type, then go down routes for id vs username)
-    @GetMapping("/users/{id}")
-    public User findOneUser(@PathVariable("id") Integer id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("id", id)); // Not sure this is actually being thrown right now
-        return user;
-    }
-    // Add one user
-    @PostMapping("/users")
+    @PostMapping
     public User addOneUser(@RequestBody User user) {
-        return this.userRepository.save(user);
+        return userService.addOneUser(user);
+    }
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/{userId}")
+    public User findOneUser(@PathVariable Integer userId) {
+        return userService.findOneUser(userId);
+    }
+
+    @PostMapping("/{userId}/add-to-group")
+    public String addUserToGroup(
+            @PathVariable Integer userId,
+            @RequestBody AddUserToGroupRequest request) {
+        userService.addUserToGroup(userId, request.getGroupId());
+        return "User added to group " + request.getGroupId();
     }
 }
