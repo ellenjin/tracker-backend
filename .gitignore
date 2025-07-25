@@ -10,6 +10,7 @@
 # ignore project files
 .idea/
 .vscode/
+.env
 
 # Keep Gradle wrapper files (do NOT ignore these!) Needed to keep Gradle wrapper scripts + jar in source control
 # Also need to make an exception for the .jar files in build so that we can deploy on Render through Github
