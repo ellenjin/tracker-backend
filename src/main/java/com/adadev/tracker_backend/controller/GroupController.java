@@ -56,5 +56,17 @@ public class GroupController {
         Group updatedGroup = this.groupRepository.save(groupToUpdate);
         return updatedGroup;
     }
+    @DeleteMapping("/groups/{groupId}")
+    public Group deleteGroup(@PathVariable("groupId") Integer id){
+        Optional<Group> groupToDeleteOptional = this.groupRepository.findById(id);
+        // The group doesn't exist
+        if(!groupToUpdateOptional.isPresent()){
+            return null
+        }
+        
+        Group groupToDelete = groupToDeleteOptional.get();
+        this.groupRepository.delete(groupToDelete);
+        return groupToDelete;
+    }
     */ 
 }
