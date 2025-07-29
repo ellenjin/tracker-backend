@@ -1,7 +1,6 @@
 package com.adadev.tracker_backend.controller;
 
 import com.adadev.tracker_backend.model.Log;
-import com.adadev.tracker_backend.repository.LogRepository;
 import com.adadev.tracker_backend.service.LogService;
 import org.springframework.web.bind.annotation.*;
 
