@@ -1,5 +1,6 @@
 # tracker-backend
 Backend repository for Accountability Tracker. Using Springboot.
+to run the project from the terminal ??
 ## Setup
 JDK17 is required! Gradle should be able to build once the project is cloned and run as long as the project is set up with JDK17.
 ### Local database setup
