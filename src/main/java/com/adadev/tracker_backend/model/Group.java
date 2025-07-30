@@ -8,13 +8,9 @@ public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) 
     private Integer groupId;
-
     
     private String groupName;
-
-    
     private String groupPicture; 
-
     private String groupDescription; 
 
     // Hibernate needs entities to have a no-arg constructor, but it doesn't have to be public.
