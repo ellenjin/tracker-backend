@@ -1,72 +1,35 @@
 package com.adadev.tracker_backend.controller;
-
 import java.util.List;
-
 import com.adadev.tracker_backend.repository.GroupRepository;
 import com.adadev.tracker_backend.model.Group;
+import com.adadev.tracker_backend.service.GroupService;
 import org.springframework.web.bind.annotation.*;
 
+@RestController
+@RequestMapping("/groups")
 public class GroupController {
-    private final GroupRepository groupRepository;
 
-    public GroupController(final GroupRepository groupRepository){
-        this.groupRepository = groupRepository;
+    private final GroupService groupService;
+
+    public GroupController(GroupService groupService){
+        this.groupService = groupService;
     }
 
-    @GetMapping("/groups")
-    public List<Group> getGroups(){
-        return this.groupRepository.findAll();
+    @PostMapping
+    public Group addOneGroup(@RequestBody Group group) {
+        return groupService.addOneGroup(group);
     }
-
-    /* 
-        move all mapping requests to the service file
+    @GetMapping
+    public List<Group> getAllGroups() {
+        return groupService.getAllGroups();
+    }
+    @GetMapping("/{groupId}")
+    public Group findOneGroup(@PathVariable Integer groupId) {
+        return groupService.findOneGroup(groupId);
+    }
     
-    // Optional type returns null of the id isn't found
-    @GetMapping("/groups/{groupId}")
-    public Optional<Group> getOneGroup(@PathVariable("groupId") Integer groupId){
-        return this.groupRepository.findById(groupId);
-    }
-
-    @PostMapping("/groups")
-    public Group createNewGroup(@RequestBody Group newGroup){
-        Group newGroup = this.personRepository.save(newGroup);
-        return newGroup;
-    }
-
-    @PutMapping("/groups/{groupId}")
-    public Group updateGroup(@PathVariable("groupId") Integer id, @RequestBody Group updatedGroup){
-        Optional<Group> groupToUpdateOptional = this.groupRepository.findById(id);
-        // The group doesn't exist
-        if(!groupToUpdateOptional.isPresent()){
-            return null
-        }
-        
-        Group groupToUpdate = groupToUpdateOptional.get();
-
-        if(!groupToUpdate.getName()){
-            groupToUpdate.setName(updatedGroup.getName());
-        }
-        if(!groupToUpdate.getPicture()){
-            groupToUpdate.setPicture(updatedGroup.getPicture());
-        }
-        if(!groupToUpdate.getDescription()){
-            groupToUpdate.setDescription(updatedGroup.getDescription());
-        }
-        
-        Group updatedGroup = this.groupRepository.save(groupToUpdate);
-        return updatedGroup;
-    }
     @DeleteMapping("/groups/{groupId}")
-    public Group deleteGroup(@PathVariable("groupId") Integer id){
-        Optional<Group> groupToDeleteOptional = this.groupRepository.findById(id);
-        // The group doesn't exist
-        if(!groupToUpdateOptional.isPresent()){
-            return null
-        }
-        
-        Group groupToDelete = groupToDeleteOptional.get();
-        this.groupRepository.delete(groupToDelete);
-        return groupToDelete;
+    public Group deleteGroup(@PathVariable("groupId") Integer groupId){
+        return this.groupService.deleteGroup(groupId);
     }
-    */ 
 }
