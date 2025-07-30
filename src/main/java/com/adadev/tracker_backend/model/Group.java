@@ -1,5 +1,4 @@
 package com.adadev.tracker_backend.model;
-
 import jakarta.persistence.*;
 
 @Entity
@@ -23,28 +22,32 @@ public class Group {
         this.groupDescription = description;
     }
 
-    public String getName() {
+    public Integer getGroupId(){
+        return this.groupId;
+    }
+
+    public String getGroupName() {
         return this.groupName;
     }
 
-    public String getPicture() {
+    public String getGroupPicture() {
         return this.groupPicture;
     }
 
-    public String getDescription() {
+    public String getGroupDescription() {
         return this.groupDescription;
     }
 
     // Setters to update fields if the user choose to edit group details
-    public void setName(String name) {
+    public void setGroupName(String name) {
         this.groupName = name;
     }
 
-    public void setPicture(String picture) {
+    public void setGroupPicture(String picture) {
         this.groupPicture = picture;
     }
 
-    public void setDescription(String description) {
+    public void setGroupDescription(String description) {
         this.groupDescription = description;
     }
 

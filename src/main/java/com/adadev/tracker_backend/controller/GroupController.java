@@ -1,5 +1,7 @@
 package com.adadev.tracker_backend.controller;
 import java.util.List;
+
+import com.adadev.tracker_backend.dto.GroupDTO;
 import com.adadev.tracker_backend.model.Group;
 import com.adadev.tracker_backend.service.GroupService;
 import org.springframework.web.bind.annotation.*;
@@ -14,21 +16,29 @@ public class GroupController {
         this.groupService = groupService;
     }
 
+    // @PostMapping
+    // public Group addOneGroup(@RequestBody Group group) {
+    //     return groupService.addOneGroup(group);
+    // }
     @PostMapping
-    public Group addOneGroup(@RequestBody Group group) {
+    public Group addOneGroup(@RequestBody GroupDTO dto) {
+        Group group = new Group(dto.groupName, dto.groupDescription, dto.groupPicture);
         return groupService.addOneGroup(group);
-    }
+    }   
+
+
     @GetMapping
     public List<Group> getAllGroups() {
         return groupService.getAllGroups();
     }
+
     @GetMapping("/{groupId}")
     public Group findOneGroup(@PathVariable Integer groupId) {
         return groupService.findOneGroup(groupId);
     }
     
-    @DeleteMapping("/groups/{groupId}")
+    @DeleteMapping("/{groupId}")
     public Group deleteGroup(@PathVariable("groupId") Integer groupId){
-        return this.groupService.deleteGroup(groupId);
+        return groupService.deleteGroup(groupId);
     }
 }

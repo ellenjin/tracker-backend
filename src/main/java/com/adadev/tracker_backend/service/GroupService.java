@@ -18,8 +18,10 @@ public class GroupService {
 
     // Create new group
     public Group addOneGroup(Group group){
+        System.out.println("Saving group: " + group.getGroupName());
         return groupRepository.save(group);
     }
+
     // Read all groups
     public List<Group> getAllGroups(){
         return groupRepository.findAll();
