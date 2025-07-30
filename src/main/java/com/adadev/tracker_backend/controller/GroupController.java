@@ -1,6 +1,5 @@
 package com.adadev.tracker_backend.controller;
 import java.util.List;
-import com.adadev.tracker_backend.repository.GroupRepository;
 import com.adadev.tracker_backend.model.Group;
 import com.adadev.tracker_backend.service.GroupService;
 import org.springframework.web.bind.annotation.*;
