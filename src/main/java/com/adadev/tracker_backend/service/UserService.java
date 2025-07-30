@@ -34,7 +34,6 @@ public class UserService {
     }
 
     // Get one user by ID or username
-    // Add logic to search by either ID or username (check if value = int or alpha)
     public User findOneUser(String identifier) {
         try {
             Integer userId = Integer.parseInt(identifier);
