@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GroupRepository extends JpaRepository<Group, Integer> {
     // You can add custom query methods here, like:
-//    Group findByName(String name);
+//    Group findByGroupName(String name);
 }
