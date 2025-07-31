@@ -6,50 +6,50 @@ import jakarta.persistence.*;
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) 
-    private Integer groupId; // probably don't need to label these as "group__". When we reference them, this should
+    private Integer id; // probably don't need to label these as "group__". When we reference them, this should
     // already be clear via group.id -- redundant to have 'group' in the name as well.
     
-    private String groupName;
-    private String groupPicture; 
-    private String groupDescription; 
+    private String name;
+    private String picture; 
+    private String description; 
 
     // Hibernate needs entities to have a no-arg constructor, but it doesn't have to be public.
     private Group() {
     }
 
     public Group(String name, String description, String picture) {
-        this.groupName = name;
-        this.groupPicture = picture;
-        this.groupDescription = description;
+        this.name = name;
+        this.picture = picture;
+        this.description = description;
     }
 
-    public Integer getGroupId(){
-        return this.groupId;
+    public Integer getId(){
+        return this.id;
     }
 
-    public String getGroupName() {
-        return this.groupName;
+    public String getName() {
+        return this.name;
     }
 
-    public String getGroupPicture() {
-        return this.groupPicture;
+    public String getPicture() {
+        return this.picture;
     }
 
-    public String getGroupDescription() {
-        return this.groupDescription;
+    public String getDescription() {
+        return this.description;
     }
 
     // Setters to update fields if the user choose to edit group details
-    public void setGroupName(String name) {
-        this.groupName = name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setGroupPicture(String picture) {
-        this.groupPicture = picture;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
-    public void setGroupDescription(String description) {
-        this.groupDescription = description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 

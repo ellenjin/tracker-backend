@@ -1,7 +1,6 @@
 package com.adadev.tracker_backend.controller;
 import java.util.List;
 
-import com.adadev.tracker_backend.dto.GroupDTO;
 import com.adadev.tracker_backend.model.Group;
 import com.adadev.tracker_backend.service.GroupService;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +15,9 @@ public class GroupController {
         this.groupService = groupService;
     }
 
-     @PostMapping
-     public Group addOneGroup(@RequestBody Group group) {
-         return groupService.addOneGroup(group);
-    // } - this request is retuning 500 error
-//    @PostMapping
-//    public Group addOneGroup(@RequestBody GroupDTO dto) {
-//        Group group = new Group(dto.groupName, dto.groupDescription, dto.groupPicture);
-//        return groupService.addOneGroup(group);
+    @PostMapping
+    public Group addOneGroup(@RequestBody Group group) {
+        return groupService.addOneGroup(group);
     }   
 
 
