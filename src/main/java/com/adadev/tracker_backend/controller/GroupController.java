@@ -16,14 +16,14 @@ public class GroupController {
         this.groupService = groupService;
     }
 
-    // @PostMapping
-    // public Group addOneGroup(@RequestBody Group group) {
-    //     return groupService.addOneGroup(group);
+     @PostMapping
+     public Group addOneGroup(@RequestBody Group group) {
+         return groupService.addOneGroup(group);
     // } - this request is retuning 500 error
-    @PostMapping
-    public Group addOneGroup(@RequestBody GroupDTO dto) {
-        Group group = new Group(dto.groupName, dto.groupDescription, dto.groupPicture);
-        return groupService.addOneGroup(group);
+//    @PostMapping
+//    public Group addOneGroup(@RequestBody GroupDTO dto) {
+//        Group group = new Group(dto.groupName, dto.groupDescription, dto.groupPicture);
+//        return groupService.addOneGroup(group);
     }   
 
 
