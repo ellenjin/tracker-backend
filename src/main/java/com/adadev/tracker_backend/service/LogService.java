@@ -1,7 +1,9 @@
 package com.adadev.tracker_backend.service;
 
 import com.adadev.tracker_backend.model.Log;
+import com.adadev.tracker_backend.model.Group;
 import com.adadev.tracker_backend.repository.LogRepository;
+import com.adadev.tracker_backend.repository.GroupRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -11,14 +13,23 @@ import java.util.List;
 public class LogService {
 
     private final LogRepository logRepository;
+    private final GroupRepository groupRepository;
 
-    public LogService(LogRepository logRepository) {
+    public LogService(LogRepository logRepository, GroupRepository groupRepository) {
         this.logRepository = logRepository;
+        this.groupRepository = groupRepository;
     }
 
     // Create new log
     // NOTE: should add in username validation (x characters long, not already in db, etc.)
     public Log addNewLog(Log log) {
+        // Get the actual Group object from DB using the ID
+//        Integer groupId = log.getGroup().getGroupId();
+        Long groupId = log.getGroup().getGroupId();
+        Group existingGroup = groupRepository.findById(groupId)
+                .orElseThrow(() -> new RuntimeException("Group not found with id: " + groupId));
+
+        log.setGroup(existingGroup); // Set the managed Group entity
         return logRepository.save(log);
     }
 
