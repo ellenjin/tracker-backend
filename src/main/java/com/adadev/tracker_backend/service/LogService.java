@@ -24,8 +24,8 @@ public class LogService {
     // NOTE: should add in username validation (x characters long, not already in db, etc.)
     public Log addNewLog(Log log) {
         // Get the actual Group object from DB using the ID
-//        Integer groupId = log.getGroup().getGroupId();
-        Long groupId = log.getGroup().getGroupId();
+        Integer groupId = log.getGroup().getGroupId();
+//        Long groupId = log.getGroup().getGroupId();
         Group existingGroup = groupRepository.findById(groupId)
                 .orElseThrow(() -> new RuntimeException("Group not found with id: " + groupId));
 
