@@ -28,9 +28,10 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/{userId}")
-    public User findOneUser(@PathVariable Integer userId) {
-        return userService.findOneUser(userId);
+    // via either username OR id
+    @GetMapping("/{identifier}")
+    public User findOneUser(@PathVariable String identifier) {
+            return userService.findOneUser(identifier);
     }
 
     @PostMapping("/{userId}/add-to-group")
