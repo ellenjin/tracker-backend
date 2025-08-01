@@ -8,6 +8,7 @@ import com.adadev.tracker_backend.model.Group;
 import java.time.LocalDateTime;
 
 @Entity
+//@Table(name = "logs")
 public class Log {
 
     @Id
@@ -38,8 +39,12 @@ public class Log {
 
     // Link each Log to a Group (interest group)
     @ManyToOne
-    @JoinColumn(name = "groupId", nullable = false)
+    @JoinColumn(name = "group_id", referencedColumnName = "id", nullable = false)
     private Group group;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    private User user;
 
     @PrePersist
     protected void onCreate() {
@@ -81,20 +86,19 @@ public class Log {
 
     public Group getGroup() { return group; }
     public void setGroup(Group group) { this.group = group; }
+
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 }
 
 
 //example field body for front end:
 //{
-//  "title": "Walk Tracker",
-//  "frequencyCount": 5,
-//  "frequencyUnit": "WEEK",
-//  "score": 3,
-//  "skillLevel": "INTERMEDIATE",
-//  "checkInCount": 0,
-//  "wantsPartner": true,
-//  "partnerName": "Jamie",
-//  "group": {
-//    "groupId": 2
-//  }
-//}
+//        "title": "Workout Log",
+//        "frequencyCount": 3,
+//        "frequencyUnit": "WEEK",
+//        "score": 7,
+//        "skillLevel": "INTERMEDIATE",
+//        "group": {
+//        "id": 2}
+//        }
