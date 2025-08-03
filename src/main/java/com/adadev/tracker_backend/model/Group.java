@@ -1,29 +1,56 @@
 package com.adadev.tracker_backend.model;
-
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "groups")
 public class Group {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) // autogenerate keys.
-    private Integer id;
-    private String name; // group name
-    private String description; // description of what the group is / tracking topic / info
+    @GeneratedValue(strategy = GenerationType.AUTO) 
+    private Integer id; // probably don't need to label these as "group__". When we reference them, this should
+    // already be clear via group.id -- redundant to have 'group' in the name as well.
+    
+    private String name;
+    private String picture; 
+    private String description; 
 
+    // Hibernate needs entities to have a no-arg constructor, but it doesn't have to be public.
     private Group() {
     }
 
-    public Group(String name, String description) {
+    public Group(String name, String description, String picture) {
         this.name = name;
+        this.picture = picture;
         this.description = description;
+    }
+
+    public Integer getId(){
+        return this.id;
     }
 
     public String getName() {
         return this.name;
     }
 
+    public String getPicture() {
+        return this.picture;
+    }
+
     public String getDescription() {
         return this.description;
     }
+
+    // Setters to update fields if the user choose to edit group details
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
 }

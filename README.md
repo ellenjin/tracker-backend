@@ -1,5 +1,9 @@
 # tracker-backend
+Backend repository for Accountability Tracker. Using Springboot.
+Command to run springboot server ./gradlew bootRun
+
 Backend API repository for Accountability Tracker. Using Spring Boot.
+
 ## Setup
 JDK17 is required! Because a Gradle wrapper has been implemented, upon initial build JDK17 will be installed if not yet existing; no action needs to be taken.
 ### Local setup
