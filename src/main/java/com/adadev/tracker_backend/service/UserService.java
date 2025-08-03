@@ -16,7 +16,7 @@ Handles User specific actions
 public class UserService {
 
     private final UserRepository userRepository;
-    private GroupRepository groupRepository;
+    private final GroupRepository groupRepository;
 
     public UserService(UserRepository userRepository, GroupRepository groupRepository) {
         this.userRepository = userRepository;
@@ -33,11 +33,16 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    // Get one user by ID
-    // Add logic to search by either ID or username (check if value = int or alpha)
-    public User findOneUser(Integer userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("ID", Integer.toString(userId)));
+    // Get one user by ID or username
+    public User findOneUser(String identifier) {
+        try {
+            Integer userId = Integer.parseInt(identifier);
+            return userRepository.findById(userId)
+                    .orElseThrow(() -> new UserNotFoundException("ID", userId));
+        } catch (NumberFormatException e) {
+            return userRepository.findByUsername(identifier)
+                    .orElseThrow(() -> new UserNotFoundException("username", identifier));
+        }
     }
     public void addUserToGroup(Integer userId, Integer groupId) {
         User user = userRepository.findById(userId)
