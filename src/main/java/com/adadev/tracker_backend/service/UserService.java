@@ -1,6 +1,8 @@
 package com.adadev.tracker_backend.service;
 
 import com.adadev.tracker_backend.exception.UserNotFoundException;
+import com.adadev.tracker_backend.exception.UsernameConflictException;
+
 import com.adadev.tracker_backend.model.Group;
 import com.adadev.tracker_backend.model.User;
 import com.adadev.tracker_backend.repository.GroupRepository;
@@ -23,8 +25,11 @@ public class UserService {
         this.groupRepository = groupRepository;
     }
     // Create new user
-    // NOTE: should add in username validation (x characters long, not already in db, etc.)
     public User addOneUser(User user) {
+        // username validation
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            throw new UsernameConflictException(user.getUsername());
+        }
         return userRepository.save(user);
     }
 
@@ -35,12 +40,12 @@ public class UserService {
 
     // Get one user by ID or username
     public User findOneUser(String identifier) {
-        try {
+        try { // by ID
             Integer userId = Integer.parseInt(identifier);
             return userRepository.findById(userId)
                     .orElseThrow(() -> new UserNotFoundException("ID", userId));
         } catch (NumberFormatException e) {
-            return userRepository.findByUsername(identifier)
+            return userRepository.findByUsername(identifier) // by Username
                     .orElseThrow(() -> new UserNotFoundException("username", identifier));
         }
     }
