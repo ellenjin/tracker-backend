@@ -1,5 +1,6 @@
 package com.adadev.tracker_backend.model;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +13,17 @@ public class User {
     private Integer id;
     // Since we use the @GeneratedValue annotation, Postgres is responsible for creating
     // ids for new User objects -- don't need id parameter in constructor.
+    @NotBlank(message = "Username required")
+    @Pattern(
+            regexp = "^(?=.*[a-zA-Z]).*$",
+            message = "Must contain at least one letter"
+    )
     private String username;
+    @Pattern(
+            regexp = "^\\d{10,11}$",
+            message = "Phone number must be only 10-11 digits"
+    )
+    private String phoneNumber;
 
     @ManyToMany
     @JoinTable(
@@ -26,8 +37,9 @@ public class User {
     // Hibernate needs entities to have a no-arg constructor, but it doesn't have to be public.
     private User() {}
 
-    public User(String username) {
+    public User(String username, String phoneNumber) {
         this.username = username;
+        this.phoneNumber = phoneNumber;
     }
 
     public Integer getId() {
@@ -36,6 +48,10 @@ public class User {
 
     public String getUsername() {
         return this.username;
+    }
+
+    public String getPhoneNumber() {
+        return this.phoneNumber;
     }
 
     public Set<Group> getGroups() {
