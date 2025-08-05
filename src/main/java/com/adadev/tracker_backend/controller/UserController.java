@@ -3,6 +3,7 @@ import java.util.List;
 import com.adadev.tracker_backend.dto.AddUserToGroupRequest;
 import com.adadev.tracker_backend.model.User;
 import com.adadev.tracker_backend.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 /*
@@ -20,7 +21,7 @@ public class UserController {
         this.userService = userService;
     }
     @PostMapping
-    public User addOneUser(@RequestBody User user) {
+    public User addOneUser(@Valid @RequestBody User user) {
         return userService.addOneUser(user);
     }
     @GetMapping
