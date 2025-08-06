@@ -2,6 +2,7 @@ package com.adadev.tracker_backend.controller;
 import java.util.List;
 
 import com.adadev.tracker_backend.model.Group;
+import com.adadev.tracker_backend.model.User;
 import com.adadev.tracker_backend.service.GroupService;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,5 +35,10 @@ public class GroupController {
     @DeleteMapping("/{groupId}")
     public Group deleteGroup(@PathVariable("groupId") Integer groupId){
         return groupService.deleteGroup(groupId);
+    }
+
+    @GetMapping("/{groupId}/users")
+    public List<User> getGroupUsers(@PathVariable Integer groupId) {
+        return groupService.getGroupUsers(groupId);
     }
 }
