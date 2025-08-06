@@ -5,19 +5,14 @@
 # Ignore Gradle caches and generated files
 .gradle/
 /.gradle/
-/build/
 
 # Java build artifacts
-/bin/
 /target/
 /*.class
 
-# IntelliJ IDEA
-.idea/
-*.iml
+
 
 # ignore project files
-.idea/
 .vscode/
 .env
 
