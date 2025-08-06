@@ -24,6 +24,7 @@ public class User {
             message = "Phone number must be only 10-11 digits"
     )
     private String phoneNumber;
+    private Set<String> interests;
 
     @ManyToMany
     @JoinTable(
@@ -40,6 +41,7 @@ public class User {
     public User(String username, String phoneNumber) {
         this.username = username;
         this.phoneNumber = phoneNumber;
+        this.interests = new HashSet<>();
     }
 
     public Integer getId() {
@@ -57,8 +59,14 @@ public class User {
     public Set<Group> getGroups() {
         return groups;
     }
+    public Set<String> getInterests() {
+        return this.interests;
+    }
 
     public void addToGroup(Group group) {
         groups.add(group);
+    }
+    public void updateInterests(Set<String> newInterests) {
+        this.interests = newInterests;
     }
 }
