@@ -1,6 +1,9 @@
 package com.adadev.tracker_backend.controller;
 import java.util.List;
+import java.util.Set;
+
 import com.adadev.tracker_backend.dto.AddUserToGroupRequest;
+import com.adadev.tracker_backend.dto.UpdateInterestsRequest;
 import com.adadev.tracker_backend.model.User;
 import com.adadev.tracker_backend.service.UserService;
 import jakarta.validation.Valid;
@@ -41,5 +44,13 @@ public class UserController {
             @RequestBody AddUserToGroupRequest request) {
         userService.addUserToGroup(userId, request.getGroupId());
         return "User added to group " + request.getGroupId();
+    }
+
+    @PutMapping("/{userId}/interests")
+    public Set<String> updateInterests(
+            @PathVariable Integer userId,
+            @RequestBody UpdateInterestsRequest request) {
+        userService.updateInterests(userId, request.getInterests());
+        return request.getInterests();
     }
 }

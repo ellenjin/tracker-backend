@@ -9,6 +9,7 @@ import com.adadev.tracker_backend.repository.GroupRepository;
 import com.adadev.tracker_backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Set;
 
 /*
 Handles User specific actions
@@ -56,6 +57,15 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("Group not found"));
 
         user.getGroups().add(group);
+        userRepository.save(user);
+    }
+
+    //
+    public void updateInterests(Integer userId, Set<String> newInterests) {
+        // replace current set with new set
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        user.updateInterests(newInterests);
         userRepository.save(user);
     }
 }
