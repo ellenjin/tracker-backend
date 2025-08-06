@@ -40,6 +40,11 @@ public class LogController {
         return logService.updateLog(logId, updatedLog);
     }
 
+    @GetMapping("/user/{userId}")
+    public List<Log> getLogByUserId(@PathVariable Integer userId) {
+        return logService.getLogByUserId(userId);
+    }
+
     @DeleteMapping("/{logId}")
     public void deleteLog(@PathVariable Integer logId) {
         logService.deleteLog(logId);

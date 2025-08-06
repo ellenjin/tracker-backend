@@ -1,9 +1,13 @@
 package com.adadev.tracker_backend.service;
 
+import com.adadev.tracker_backend.exception.UserNotFoundException;
 import com.adadev.tracker_backend.model.Log;
 import com.adadev.tracker_backend.model.Group;
+import com.adadev.tracker_backend.model.User;
 import com.adadev.tracker_backend.repository.LogRepository;
 import com.adadev.tracker_backend.repository.GroupRepository;
+import com.adadev.tracker_backend.repository.UserRepository;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -14,10 +18,12 @@ public class LogService {
 
     private final LogRepository logRepository;
     private final GroupRepository groupRepository;
+    private final UserRepository userRepository;
 
-    public LogService(LogRepository logRepository, GroupRepository groupRepository) {
+    public LogService(LogRepository logRepository, GroupRepository groupRepository, UserRepository userRepository) {
         this.logRepository = logRepository;
         this.groupRepository = groupRepository;
+        this.userRepository = userRepository;
     }
 
     // Create new log
@@ -59,6 +65,17 @@ public class LogService {
         existingLog.setGroup(updatedLog.getGroup());
 
         return logRepository.save(existingLog);
+    }
+
+    // Get all logs by user ID
+    public List<Log> getLogByUserId (Integer userId) {
+        Log log = new Log();
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new UserNotFoundException("ID", userId));
+        log.setUser(user);
+        Example<Log> example = Example.of(log);
+
+        return logRepository.findAll(example);
     }
 
     // Delete log by ID

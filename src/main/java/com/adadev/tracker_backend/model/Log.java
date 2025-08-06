@@ -50,8 +50,9 @@ public class Log {
     protected void onCreate() {
         this.timeStamp = LocalDateTime.now();
     }
-
-    private Log() {}
+    // Hibernate needs entities to have a no-arg constructor, but it doesn't have to be public.
+    // Log needs to be public so we can use the JPA Repository findAll()
+    public Log() {}
 
     // Getters/setters
     public Integer getLogId() { return logId; }
