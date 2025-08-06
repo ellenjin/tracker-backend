@@ -7,6 +7,15 @@
 /.gradle/
 /build/
 
+# Java build artifacts
+/bin/
+/target/
+/*.class
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
 # ignore project files
 .idea/
 .vscode/
@@ -19,3 +28,8 @@
 !gradle/wrapper/gradle-wrapper.jar
 !gradle/wrapper/gradle-wrapper.properties
 #!build/libs/*.jar
+# Java & IntelliJ
+/bin/
+*.class
+.idea/
+*.iml
