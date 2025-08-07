@@ -8,7 +8,7 @@ public class UpdateInterestsRequest {
     }
 
     public UpdateInterestsRequest(Set<String> interests) {
-        this.interests = interests;
+            this.interests = interests;
     }
 
     public Set<String> getInterests () {

@@ -25,8 +25,21 @@ public class User {
             message = "Phone number must be only 10-11 digits"
     )
     private String phoneNumber;
-    private Set<String> interests;
-    private Set<Integer> friends = new HashSet<>(); // store friends by ID
+    @ElementCollection
+    @CollectionTable(
+            name = "user_friends",
+            joinColumns = @JoinColumn(name = "user_id")
+    )
+    @Column(name = "friend_id")
+    private Set<Integer> friends = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(
+            name = "user_interests",
+            joinColumns = @JoinColumn(name = "user_id")
+    )
+    @Column(name = "interest")
+    private Set<String> interests = new HashSet<>(); // store friends by ID
 
     @ManyToMany
     @JoinTable(
@@ -49,7 +62,7 @@ public class User {
     public User(String username, String phoneNumber) {
         this.username = username;
         this.phoneNumber = phoneNumber;
-        this.interests = new HashSet<>();
+//        this.interests = new HashSet<>();
     }
 
     public Integer getId() {
@@ -68,6 +81,8 @@ public class User {
         return groups;
     }
 
+    public Set<String> getInterests() { return interests; }
+
     public void updateInterests(Set<String> newInterests) {
         this.interests = newInterests;
     }
@@ -84,6 +99,6 @@ public class User {
     }
 
     public void setLogs(Set<Log> logs) {
-        this.logs=logs;
+        this.logs = logs;
     }
 }
