@@ -4,6 +4,7 @@ import com.adadev.tracker_backend.exception.UserNotFoundException;
 import com.adadev.tracker_backend.exception.UsernameConflictException;
 
 import com.adadev.tracker_backend.model.Group;
+import com.adadev.tracker_backend.model.Log;
 import com.adadev.tracker_backend.model.User;
 import com.adadev.tracker_backend.repository.GroupRepository;
 import com.adadev.tracker_backend.repository.UserRepository;
@@ -25,6 +26,11 @@ public class UserService {
         this.userRepository = userRepository;
         this.groupRepository = groupRepository;
     }
+    private User getUserOrThrow(Integer userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
     // Create new user
     public User addOneUser(User user) {
         // username validation
@@ -50,6 +56,18 @@ public class UserService {
                     .orElseThrow(() -> new UserNotFoundException("username", identifier));
         }
     }
+    // update a user's interests
+    public void updateInterests(Integer userId, Set<String> newInterests) {
+        // replace current set with new set
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        user.updateInterests(newInterests);
+        userRepository.save(user);
+    }
+    /*
+    Group routes
+     */
+    // Add user to a group
     public void addUserToGroup(Integer userId, Integer groupId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -60,12 +78,11 @@ public class UserService {
         userRepository.save(user);
     }
 
-    //
-    public void updateInterests(Integer userId, Set<String> newInterests) {
-        // replace current set with new set
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        user.updateInterests(newInterests);
-        userRepository.save(user);
+    /*
+    Log routes
+     */
+    public Set<Log> getLogs(Integer userId) {
+        User user = getUserOrThrow(userId);
+        return user.getLogs();
     }
 }

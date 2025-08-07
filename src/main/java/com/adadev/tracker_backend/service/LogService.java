@@ -26,17 +26,15 @@ public class LogService {
         this.userRepository = userRepository;
     }
 
-    // Create new log
-    // NOTE: should add in username validation (x characters long, not already in db, etc.)
     public Log addNewLog(Log log) {
-        // Get the actual Group object from DB using the ID
-        Integer groupId = log.getGroup().getId();
-//        Integer groupId = log.getGroup().getGroupId();
-//        Long groupId = log.getGroup().getGroupId();
-        Group existingGroup = groupRepository.findById(groupId)
-                .orElseThrow(() -> new RuntimeException("Group not found with id: " + groupId));
+        Group group = null;
+        if (log.getGroup() != null) {
+            Integer groupId = log.getGroup().getId();
+            group = groupRepository.findById(groupId)
+                    .orElseThrow(() -> new RuntimeException("Group not found with id: " + groupId));
+        }
 
-        log.setGroup(existingGroup); // Set the managed Group entity
+        log.setGroup(group);
         return logRepository.save(log);
     }
 
@@ -46,14 +44,11 @@ public class LogService {
     }
 
     // Get log by ID
-    // Add logic to search by either ID or username (check if value = int or alpha)
     public Log findOneLog(Integer logId) {
         return logRepository.findById(logId)
                 .orElseThrow(() -> new RuntimeException("Log with ID: " + logId + " not found"));
     }
 
-    // Update log by ID
-    // Do any of these need to handle null fields conditionally?
     public Log updateLog(Integer logId, Log updatedLog) {
         Log existingLog = findOneLog(logId);
 
@@ -65,17 +60,6 @@ public class LogService {
         existingLog.setGroup(updatedLog.getGroup());
 
         return logRepository.save(existingLog);
-    }
-
-    // Get all logs by user ID
-    public List<Log> getLogByUserId (Integer userId) {
-        Log log = new Log();
-        User user = userRepository.findById(userId)
-            .orElseThrow(() -> new UserNotFoundException("ID", userId));
-        log.setUser(user);
-        Example<Log> example = Example.of(log);
-
-        return logRepository.findAll(example);
     }
 
     // Delete log by ID
