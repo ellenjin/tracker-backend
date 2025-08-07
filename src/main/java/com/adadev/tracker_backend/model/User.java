@@ -26,6 +26,7 @@ public class User {
     )
     private String phoneNumber;
     private Set<String> interests;
+    private Set<Integer> friends = new HashSet<>(); // store friends by ID
 
     @ManyToMany
     @JoinTable(
@@ -66,15 +67,16 @@ public class User {
     public Set<Group> getGroups() {
         return groups;
     }
-    public Set<String> getInterests() {
-        return this.interests;
-    }
 
-    public void addToGroup(Group group) {
-        groups.add(group);
-    }
     public void updateInterests(Set<String> newInterests) {
         this.interests = newInterests;
+    }
+
+    public Set<Integer> getFriends() {
+        if (friends == null) {
+            friends = new HashSet<>();
+        }
+        return friends;
     }
 
     public Set<Log> getLogs() {

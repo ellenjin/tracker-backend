@@ -49,8 +49,7 @@ public class UserService {
     public User findOneUser(String identifier) {
         try { // by ID
             Integer userId = Integer.parseInt(identifier);
-            return userRepository.findById(userId)
-                    .orElseThrow(() -> new UserNotFoundException("ID", userId));
+            return getUserOrThrow(userId);
         } catch (NumberFormatException e) {
             return userRepository.findByUsername(identifier) // by Username
                     .orElseThrow(() -> new UserNotFoundException("username", identifier));
@@ -58,9 +57,7 @@ public class UserService {
     }
     // update a user's interests
     public void updateInterests(Integer userId, Set<String> newInterests) {
-        // replace current set with new set
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = getUserOrThrow(userId);
         user.updateInterests(newInterests);
         userRepository.save(user);
     }
@@ -69,8 +66,7 @@ public class UserService {
      */
     // Add user to a group
     public void addUserToGroup(Integer userId, Integer groupId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = getUserOrThrow(userId);
         Group group = groupRepository.findById(groupId)
                 .orElseThrow(() -> new RuntimeException("Group not found"));
 
@@ -84,5 +80,17 @@ public class UserService {
     public Set<Log> getLogs(Integer userId) {
         User user = getUserOrThrow(userId);
         return user.getLogs();
+    }
+
+    public void addFriend(Integer userId, Integer friendId) {
+        User user = getUserOrThrow(userId);
+        user.getFriends().add(friendId);
+        userRepository.save(user);
+    }
+
+    public void removeFriend(Integer userId, Integer friendId) {
+        User user = getUserOrThrow(userId);
+        user.getFriends().remove(friendId);
+        userRepository.save(user);
     }
 }
