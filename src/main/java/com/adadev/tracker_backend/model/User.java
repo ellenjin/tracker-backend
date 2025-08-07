@@ -1,4 +1,5 @@
 package com.adadev.tracker_backend.model;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -35,6 +36,12 @@ public class User {
     private Set<Group> groups = new HashSet<>(); // Tells Hibernate that we want to link Group to User (we're in User file)
     // Currently, mapping is set to be just unidirectional -- bidirectional creates more challenges with updating on both sides
 
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL, // User operations will cascade to logs
+            orphanRemoval = true) // delete logs that are removed from the set (below)
+    @JsonManagedReference
+    private Set<Log> logs = new HashSet<>();
     // Hibernate needs entities to have a no-arg constructor, but it doesn't have to be public.
     private User() {}
 
@@ -68,5 +75,13 @@ public class User {
     }
     public void updateInterests(Set<String> newInterests) {
         this.interests = newInterests;
+    }
+
+    public Set<Log> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(Set<Log> logs) {
+        this.logs=logs;
     }
 }

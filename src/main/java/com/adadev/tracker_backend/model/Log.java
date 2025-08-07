@@ -1,5 +1,6 @@
 package com.adadev.tracker_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,44 +15,33 @@ public class Log {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer logId;
-
     private String title;
-
     private Integer frequencyCount; //number of times
-
     @Enumerated(EnumType.STRING)
     private FrequencyUnit frequencyUnit; // Custom enum type: DAY/ WEEK/ MONTH
-
     private Integer score;
-
     @Enumerated(EnumType.STRING)
     private SkillLevel skillLevel; //Custom enum: BEGINNER/ INTERMEDIATE/ ADVANCED
-
     private Integer checkInCount;
-
     private Boolean wantsPartner;
-
     private String partnerName;
-
-//    @CreatedDate
     @Column(updatable = false)
     private LocalDateTime timeStamp;
 
     // Link each Log to a Group (interest group)
-    @ManyToOne
-    @JoinColumn(name = "group_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "group_id", referencedColumnName = "id", nullable = true)
     private Group group;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @JsonBackReference // to stop reference loop
     private User user;
-
     @PrePersist
     protected void onCreate() {
         this.timeStamp = LocalDateTime.now();
     }
-    // Hibernate needs entities to have a no-arg constructor, but it doesn't have to be public.
-    // Log needs to be public so we can use the JPA Repository findAll()
+
     public Log() {}
 
     // Getters/setters
