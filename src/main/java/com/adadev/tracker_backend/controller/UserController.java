@@ -53,4 +53,18 @@ public class UserController {
         userService.updateInterests(userId, request.getInterests());
         return request.getInterests();
     }
+
+    @PutMapping("/{userId}/add-friend/{friendId}")
+    public String addFriend(
+            @PathVariable Integer userId,
+            @PathVariable Integer friendId) {
+        userService.addFriend(userId, friendId);
+        return ("User ID " + friendId + " added to friends");
+    }
+
+    @PutMapping("/{userId}/remove-friend/{friendId}")
+    public String removeFriend(@PathVariable Integer userId, @PathVariable Integer friendId) {
+        userService.removeFriend(userId, friendId);
+        return("Removed User " + friendId + " from friends");
+    }
 }

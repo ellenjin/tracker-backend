@@ -2,6 +2,7 @@ package com.adadev.tracker_backend.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,6 +26,7 @@ public class User {
     )
     private String phoneNumber;
     private Set<String> interests;
+    private Set<Integer> friends; // store friends by ID
 
     @ManyToMany
     @JoinTable(
@@ -42,6 +44,8 @@ public class User {
         this.username = username;
         this.phoneNumber = phoneNumber;
         this.interests = new HashSet<>();
+//        this.friends = new HashSet<>();
+        this.friends = Collections.emptySet();
     }
 
     public Integer getId() {
@@ -68,5 +72,13 @@ public class User {
     }
     public void updateInterests(Set<String> newInterests) {
         this.interests = newInterests;
+    }
+
+    public void addFriend(Integer friendId) {
+        this.friends.add(friendId);
+    }
+
+    public void removeFriend(Integer friendId) {
+        this.friends.remove(friendId);
     }
 }

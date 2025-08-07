@@ -68,4 +68,18 @@ public class UserService {
         user.updateInterests(newInterests);
         userRepository.save(user);
     }
+
+    public void addFriend(Integer userId, Integer friendId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        user.addFriend(friendId);
+        userRepository.save(user);
+    }
+
+    public void removeFriend(Integer userId, Integer friendId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        user.removeFriend(friendId);
+        userRepository.save(user);
+    }
 }
