@@ -3,7 +3,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,7 +26,7 @@ public class User {
     )
     private String phoneNumber;
     private Set<String> interests;
-    private Set<Integer> friends; // store friends by ID
+    private Set<Integer> friends = new HashSet<>(); // store friends by ID
 
     @ManyToMany
     @JoinTable(
@@ -51,8 +50,6 @@ public class User {
         this.username = username;
         this.phoneNumber = phoneNumber;
         this.interests = new HashSet<>();
-//        this.friends = new HashSet<>();
-        this.friends = Collections.emptySet();
     }
 
     public Integer getId() {
@@ -70,23 +67,16 @@ public class User {
     public Set<Group> getGroups() {
         return groups;
     }
-    public Set<String> getInterests() {
-        return this.interests;
-    }
 
-    public void addToGroup(Group group) {
-        groups.add(group);
-    }
     public void updateInterests(Set<String> newInterests) {
         this.interests = newInterests;
     }
 
-    public void addFriend(Integer friendId) {
-        this.friends.add(friendId);
-    }
-
-    public void removeFriend(Integer friendId) {
-        this.friends.remove(friendId);
+    public Set<Integer> getFriends() {
+        if (friends == null) {
+            friends = new HashSet<>();
+        }
+        return friends;
     }
 
     public Set<Log> getLogs() {
