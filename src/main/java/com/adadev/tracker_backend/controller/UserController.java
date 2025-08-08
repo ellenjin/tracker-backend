@@ -38,7 +38,13 @@ public class UserController {
             return userService.findOneUser(identifier);
     }
 
-    @PostMapping("/{userId}/add-to-group")
+    @DeleteMapping("/{userId}")
+    public String deleteUser(@PathVariable Integer userId) {
+        userService.deleteUser(userId);
+        return("Deleted user " + userId);
+    }
+
+    @PutMapping("/{userId}/add-to-group")
     public String addUserToGroup(
             @PathVariable Integer userId,
             @RequestBody AddUserToGroupRequest request) {

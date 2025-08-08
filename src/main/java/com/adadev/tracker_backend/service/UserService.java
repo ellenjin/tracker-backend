@@ -74,6 +74,11 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public void deleteUser(Integer userId) {
+        User user = getUserOrThrow(userId);
+        userRepository.delete(user);
+    }
+
     /*
     Log routes
      */
