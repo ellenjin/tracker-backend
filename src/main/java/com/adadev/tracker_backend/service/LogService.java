@@ -10,6 +10,7 @@ import com.adadev.tracker_backend.repository.UserRepository;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 // This file keeps business logic out of the controller and validates if a log exists before updating or deleting
 
@@ -68,5 +69,13 @@ public class LogService {
             throw new RuntimeException("Log with ID: " + logId + " not found");
         }
         logRepository.deleteById(logId);
+    }
+
+    public Log getUserLogForGroup(Integer userId, Integer groupId) {
+        Log log = logRepository.findByUser_IdAndGroup_Id(userId, groupId);
+        if (log == null) {
+            throw new RuntimeException("Log doesn't exist for user " + userId + " group " + groupId);
+        }
+        return log;
     }
 }

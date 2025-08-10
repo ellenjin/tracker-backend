@@ -44,4 +44,9 @@ public class LogController {
     public void deleteLog(@PathVariable Integer logId) {
         logService.deleteLog(logId);
     }
+
+    @GetMapping("/user/{userId}/group/{groupId}")
+    public Log getLogForUserInGroup(@PathVariable Integer userId, @PathVariable Integer groupId) {
+        return logService.getUserLogForGroup(userId, groupId);
+    }
 }

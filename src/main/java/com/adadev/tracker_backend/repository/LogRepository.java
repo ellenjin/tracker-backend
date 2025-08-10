@@ -2,11 +2,12 @@ package com.adadev.tracker_backend.repository;
 
 import com.adadev.tracker_backend.model.Log;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
 
 @Repository
 public interface LogRepository extends JpaRepository<Log, Integer> {
-    // You can add custom query methods here, like:
-
-    // but there are also a lot of query methods that are already written in JpaRepository!
+    @Query("SELECT l FROM Log l WHERE l.user.id = :userId AND l.groupId = :groupId")
+    Log findByUser_IdAndGroup_Id(Integer userId, Integer groupId);
 }
