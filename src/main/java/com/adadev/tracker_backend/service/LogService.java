@@ -78,4 +78,10 @@ public class LogService {
         }
         return log;
     }
+
+    public Log checkInOnce(Integer logId) {
+        Log log = findOneLog(logId);
+        log.checkInOnce();
+        return logRepository.save(log);
+    }
 }

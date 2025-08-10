@@ -49,4 +49,9 @@ public class LogController {
     public Log getLogForUserInGroup(@PathVariable Integer userId, @PathVariable Integer groupId) {
         return logService.getUserLogForGroup(userId, groupId);
     }
+    // Increase check in count by 1 -- aka just check in once.
+    @PutMapping("/{logId}/checkIn")
+    public Log checkInOnce(@PathVariable Integer logId) {
+        return logService.checkInOnce(logId);
+    }
 }
