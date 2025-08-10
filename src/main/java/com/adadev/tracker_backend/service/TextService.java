@@ -1,5 +1,6 @@
 package com.adadev.tracker_backend.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -15,15 +16,23 @@ public class TextService {
         this.restTemplate = restTemplate;
     }
 
+    @Value("${textbelt.api.key}")
+    private String textbeltApiKey;  
+
     public String sendText(String phone, String message) {
         String url = "https://textbelt.com/text";
+
+        // Map<String, String> request = Map.of(
+        //     "phone", phone,
+        //     "message", message,
+        //     "key", "textbelt"
+        // );
 
         Map<String, String> request = Map.of(
             "phone", phone,
             "message", message,
-            "key", "textbelt"
+            "key", textbeltApiKey
         );
-
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
 
         return response.getBody();
