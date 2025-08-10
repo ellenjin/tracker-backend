@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LogRepository extends JpaRepository<Log, Integer> {
-    @Query("SELECT l FROM Log l WHERE l.user.id = :userId AND l.groupId = :groupId")
+    @Query("SELECT l FROM Log l WHERE l.user.id = :userId AND l.group.Id = :groupId")
     Log findByUser_IdAndGroup_Id(Integer userId, Integer groupId);
 }
