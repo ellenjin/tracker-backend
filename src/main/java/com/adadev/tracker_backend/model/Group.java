@@ -6,8 +6,7 @@ import jakarta.persistence.*;
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) 
-    private Integer id; // probably don't need to label these as "group__". When we reference them, this should
-    // already be clear via group.id -- redundant to have 'group' in the name as well.
+    private Integer id;
     
     private String name;
     private String picture; 

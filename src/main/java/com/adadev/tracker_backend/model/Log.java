@@ -22,7 +22,7 @@ public class Log {
     private Integer score;
     @Enumerated(EnumType.STRING)
     private SkillLevel skillLevel; //Custom enum: BEGINNER/ INTERMEDIATE/ ADVANCED
-    private Integer checkInCount;
+    private Integer checkInCount = 0; // always initialize to 0
     private Boolean wantsPartner;
     private String partnerName;
     @Column(updatable = false)
@@ -65,6 +65,9 @@ public class Log {
 
     public Integer getCheckInCount() { return checkInCount; }
     public void setCheckInCount(Integer checkInCount) { this.checkInCount = checkInCount; }
+    public void checkInOnce() {
+        this.checkInCount++;
+    }
 
     public Boolean getWantsPartner() { return wantsPartner; }
     public void setWantsPartner(Boolean wantsPartner) { this.wantsPartner = wantsPartner; }
