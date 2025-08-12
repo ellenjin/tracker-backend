@@ -49,7 +49,7 @@ public class LogService {
         return logRepository.findById(logId)
                 .orElseThrow(() -> new RuntimeException("Log with ID: " + logId + " not found"));
     }
-
+    // will update everything EXCEPT group
     public Log updateLog(Integer logId, Log updatedLog) {
         Log existingLog = findOneLog(logId);
 
@@ -58,7 +58,8 @@ public class LogService {
         existingLog.setFrequencyUnit(updatedLog.getFrequencyUnit());
         existingLog.setScore(updatedLog.getScore());
         existingLog.setSkillLevel(updatedLog.getSkillLevel());
-        existingLog.setGroup(updatedLog.getGroup());
+        existingLog.setWantsPartner(updatedLog.getWantsPartner());
+        existingLog.setPartnerName(updatedLog.getPartnerName());
 
         return logRepository.save(existingLog);
     }
