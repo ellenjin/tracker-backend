@@ -85,13 +85,7 @@ DATABASE_USERNAME=<username>
 DATABASE_PASSWORD=<password>
 ```
 
----
 
-## Notes
-- **CORS**: Requests to the tracker-backend must come from:
-  - `http://localhost:5173` (default Vite port), or
-  - The deployed frontend: [ellenjin.github.io/tracker-frontend](https://ellenjin.github.io/tracker-frontend/)
-- The app is configured to use the deployed database by default — local DB setup is optional.
 
 
 
