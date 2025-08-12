@@ -40,13 +40,6 @@ The backend handles authentication, database storage, group management, and SMS 
 
 ---
 
-## Team
-- **Solhee Jin**
-- **Sno Ochoa**
-- **Laura Castro**
-
----
-
 ## Backend Setup (`tracker-backend`)
 
 1. **Clone the repository**:
@@ -56,7 +49,11 @@ The backend handles authentication, database storage, group management, and SMS 
    ```
 
 2. **Ensure Java 17 is installed**.  
-   A Gradle wrapper has been implemented, so on the initial build, JDK 17 will be installed automatically if not present.
+A Gradle wrapper has been implemented, so on the initial build, JDK 17 will be installed automatically if not present.
+
+    Relevant Dependencies:
+   - [SpringBoot](https://spring.io/why-spring)
+
 
 3. **Create a `.env` file** in the backend root:
    ```
@@ -84,6 +81,14 @@ DATABASE_URL=<url>
 DATABASE_USERNAME=<username>
 DATABASE_PASSWORD=<password>
 ```
+
+## ✨Team
+
+- [**Solhee Jin**](https://github.com/ellenjin)
+- [**Sno Ochoa**](https://github.com/ra-choa)
+- [**Laura Castro**](https://github.com/lauracastrotech)
+
+This application was a collaborative effort built during Ada's Developer Academy Core Program. Logger was developed independently from the curriculum as a capstone project. Demo release coming soon!
 
 
 
