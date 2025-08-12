@@ -17,14 +17,16 @@ public class User {
     @NotBlank(message = "Username required")
     @Pattern(
             regexp = "^(?=.*[a-zA-Z]).*$",
-            message = "Must contain at least one letter"
+            message = "Must only contain letters"
     )
     private String username;
+    @NotBlank(message = "Phone number is required")
     @Pattern(
             regexp = "^\\d{10,11}$",
             message = "Phone number must be only 10-11 digits"
     )
     private String phoneNumber;
+    private String profilePicture;
     @ElementCollection
     @CollectionTable(
             name = "user_friends",
@@ -62,7 +64,6 @@ public class User {
     public User(String username, String phoneNumber) {
         this.username = username;
         this.phoneNumber = phoneNumber;
-//        this.interests = new HashSet<>();
     }
 
     public Integer getId() {
@@ -100,5 +101,11 @@ public class User {
 
     public void setLogs(Set<Log> logs) {
         this.logs = logs;
+    }
+    public String getProfilePicture() {
+        return this.profilePicture;
+    }
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 }

@@ -98,4 +98,10 @@ public class UserService {
         user.getFriends().remove(friendId);
         userRepository.save(user);
     }
+
+    public void setProfilePicture(Integer userId, String profilePicture) {
+        User user = getUserOrThrow(userId);
+        user.setProfilePicture(profilePicture);
+        userRepository.save(user);
+    }
 }

@@ -10,9 +10,7 @@ public class Group {
     
     private String name;
     private String picture; 
-    private String description; 
-
-    // Hibernate needs entities to have a no-arg constructor, but it doesn't have to be public.
+    private String description;
     private Group() {
     }
 

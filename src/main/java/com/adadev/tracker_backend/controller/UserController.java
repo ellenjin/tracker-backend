@@ -73,4 +73,9 @@ public class UserController {
         userService.removeFriend(userId, friendId);
         return("Removed User " + friendId + " from friends");
     }
+    @PutMapping("/{userId}/set-pfp")
+    public String setProfilePicture(@PathVariable Integer userId, @RequestBody String profilePicture) {
+        userService.setProfilePicture(userId, profilePicture);
+        return("Set profile picture: " + profilePicture);
+    }
 }
