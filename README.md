@@ -51,7 +51,7 @@ The backend handles authentication, database storage, group management, and SMS 
 
 1. **Clone the repository**:
    ```bash
-   git clone <backend-repo-url>
+   git clone https://github.com/ellenjin/tracker-backend.git
    cd tracker-backend
    ```
 
